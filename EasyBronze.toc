@@ -1,6 +1,6 @@
 ## Interface: 100207
 ## Title: Easy Bronze
-## Version: 0.0.1
+## Version: 0.0.2
 ## Author: Aelexe
 ## Notes: Adds gear and gems to the unraveling sands interface, based on configurable settings.
 ## License: All rights reserved. Do not redistribute, in whole or in part, without explicit prior permission from the author.
@@ -10,7 +10,11 @@
 
 embeds.xml
 
+db\migration.lua
+
 EasyBronze.lua
 constants.lua
-frames\gui.lua
-frames\tooltip-reader.lua
+
+gui\gem-tab.lua
+gui\main.lua
+gui\tooltip-reader.lua

@@ -2,16 +2,29 @@ C_AddOns.LoadAddOn("Blizzard_ScrappingMachineUI")
 
 EasyBronze = LibStub("AceAddon-3.0"):NewAddon("Easy Bronze", "AceEvent-3.0", "AceConsole-3.0")
 
-function EasyBronze:OnInitialize()
-	local default = { gems = {} }
+EasyBronze.itemCache = {}
+EasyBronze.itemQueue = {}
+EasyBronze.gui = {}
 
-	for _, gemType in ipairs(EasyBronze.GEM_TYPES) do
-		default.gems[gemType.id] = false
+function EasyBronze:OnInitialize()
+	local default = {
+		gems = {
+			stats = {},
+			qualities = {}
+		}
+	}
+
+	for _, gemStat in ipairs(EasyBronze.GEM_STATS) do
+		default.gems.stats[gemStat.id] = false
+	end
+
+	for _, gemQuality in ipairs(EasyBronze.GEM_QUALITIES) do
+		default.gems.stats[gemQuality.id] = true
 	end
 
 	self.db = LibStub("AceDB-3.0"):New("EasyBronzeDB", { profile = default }, true)
-	self.itemCache = {}
-	self.itemQueue = {}
+
+	MigrateDatabase(self.db)
 end
 
 EasyBronze:RegisterChatCommand("easybronze", "slashFunc")
@@ -70,39 +83,53 @@ function EasyBronze:createScrapQueue()
 
 	local scrappableGems = {}
 
-	if self.db.profile.gems.crit then
-		for _, gemId in ipairs(EasyBronze.CRIT_GEMS) do
-			table.insert(scrappableGems, gemId)
+	if self.db.profile.gems.stats.crit then
+		for i, gemQuality in ipairs(EasyBronze.GEM_QUALITIES) do
+			if self.db.profile.gems.qualities[gemQuality.id] then
+				table.insert(scrappableGems, EasyBronze.CRIT_GEMS[i])
+			end
 		end
 	end
-	if self.db.profile.gems.haste then
-		for _, gemId in ipairs(EasyBronze.HASTE_GEMS) do
-			table.insert(scrappableGems, gemId)
+	if self.db.profile.gems.stats.haste then
+		for i, gemQuality in ipairs(EasyBronze.GEM_QUALITIES) do
+			if self.db.profile.gems.qualities[gemQuality.id] then
+				table.insert(scrappableGems, EasyBronze.HASTE_GEMS[i])
+			end
 		end
 	end
-	if self.db.profile.gems.mastery then
-		for _, gemId in ipairs(EasyBronze.MASTERY_GEMS) do
-			table.insert(scrappableGems, gemId)
+	if self.db.profile.gems.stats.mastery then
+		for i, gemQuality in ipairs(EasyBronze.GEM_QUALITIES) do
+			if self.db.profile.gems.qualities[gemQuality.id] then
+				table.insert(scrappableGems, EasyBronze.MASTERY_GEMS[i])
+			end
 		end
 	end
-	if self.db.profile.gems.versatility then
-		for _, gemId in ipairs(EasyBronze.VERSATILITY_GEMS) do
-			table.insert(scrappableGems, gemId)
+	if self.db.profile.gems.stats.versatility then
+		for i, gemQuality in ipairs(EasyBronze.GEM_QUALITIES) do
+			if self.db.profile.gems.qualities[gemQuality.id] then
+				table.insert(scrappableGems, EasyBronze.VERSATILITY_GEMS[i])
+			end
 		end
 	end
-	if self.db.profile.gems.leech then
-		for _, gemId in ipairs(EasyBronze.LEECH_GEMS) do
-			table.insert(scrappableGems, gemId)
+	if self.db.profile.gems.stats.leech then
+		for i, gemQuality in ipairs(EasyBronze.GEM_QUALITIES) do
+			if self.db.profile.gems.qualities[gemQuality.id] then
+				table.insert(scrappableGems, EasyBronze.LEECH_GEMS[i])
+			end
 		end
 	end
-	if self.db.profile.gems.speed then
-		for _, gemId in ipairs(EasyBronze.SPEED_GEMS) do
-			table.insert(scrappableGems, gemId)
+	if self.db.profile.gems.stats.speed then
+		for i, gemQuality in ipairs(EasyBronze.GEM_QUALITIES) do
+			if self.db.profile.gems.qualities[gemQuality.id] then
+				table.insert(scrappableGems, EasyBronze.SPEED_GEMS[i])
+			end
 		end
 	end
-	if self.db.profile.gems.armour then
-		for _, gemId in ipairs(EasyBronze.ARMOUR_GEMS) do
-			table.insert(scrappableGems, gemId)
+	if self.db.profile.gems.stats.armour then
+		for i, gemQuality in ipairs(EasyBronze.GEM_QUALITIES) do
+			if self.db.profile.gems.qualities[gemQuality.id] then
+				table.insert(scrappableGems, EasyBronze.ARMOUR_GEMS[i])
+			end
 		end
 	end
 
