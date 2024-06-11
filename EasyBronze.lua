@@ -357,7 +357,7 @@ function EasyBronze:isItemScrappable(itemId)
 			end
 			return false
 		else
-			table.insert(self.failedItems, itemId)
+			-- TODO: Handle tooltip scan failures if needed.
 			return false
 		end
 	end
