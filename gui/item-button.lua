@@ -29,12 +29,6 @@ function CreateItemButton(itemId)
 	button:SetAttribute("type", "item")
 	button:SetAttribute("item", ItemAPI.getItemName(itemId))
 
-	button:SetScript('OnEnter', function(self)
-		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-		GameTooltip:SetItemByID(itemId)
-		GameTooltip:Show()
-	end)
-
 	-- Textures can be nil if loaded early in the game launch lifecycle. This is a partial workaround.
 	-- TODO: Check repeatedly if still nil after load.
 	button:SetScript("OnShow", function(self)
@@ -44,12 +38,32 @@ function CreateItemButton(itemId)
 				SetItemButtonTexture(button, texture)
 			end
 		end
+
+		updateItemCount()
+	end)
+
+	button:SetScript('OnEnter', function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:SetItemByID(itemId)
+		GameTooltip:Show()
 	end)
 
 	button:SetScript('OnLeave',
 		function(self)
 			GameTooltip_Hide()
 		end)
+
+	-- Hacky workaround to item counts not updating correctly.
+	button:SetScript("OnMouseDown", function()
+		EasyBronze:ScheduleTimer(updateItemCount, 0)
+		EasyBronze:ScheduleTimer(updateItemCount, 0.25)
+		EasyBronze:ScheduleTimer(updateItemCount, 0.5)
+	end)
+	button:SetScript("OnMouseUp", function()
+		EasyBronze:ScheduleTimer(updateItemCount, 0)
+		EasyBronze:ScheduleTimer(updateItemCount, 0.25)
+		EasyBronze:ScheduleTimer(updateItemCount, 0.5)
+	end)
 
 	return button
 end

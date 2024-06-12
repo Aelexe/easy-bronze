@@ -1,6 +1,6 @@
 C_AddOns.LoadAddOn("Blizzard_ScrappingMachineUI")
 
-EasyBronze = LibStub("AceAddon-3.0"):NewAddon("Easy Bronze", "AceEvent-3.0", "AceConsole-3.0")
+EasyBronze = LibStub("AceAddon-3.0"):NewAddon("Easy Bronze", "AceConsole-3.0", "AceEvent-3.0", "AceTimer-3.0")
 
 EasyBronze.itemCache = {}
 EasyBronze.itemQueue = {}
