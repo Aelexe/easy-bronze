@@ -3,6 +3,7 @@
 A World of Warcraft addons to aid in the loading of gear and gems into the unraveling sands interface, based on configurable settings.
 
 <img src="./docs/gui.png" height="400" >
+<img src="./docs/loot-panel.png" height="400" >
 
 ## Features
 
