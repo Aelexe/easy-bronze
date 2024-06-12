@@ -1,0 +1,92 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	<Button name="BronzeItemButtonTemplate" registerForClicks="LeftButtonUp, RightButtonUp"
+		inherits="SecureActionButtonTemplate"
+		virtual="true">
+		<Size>
+			<AbsDimension x="37" y="37" />
+		</Size>
+		<Animations>
+			<AnimationGroup parentKey="newitemglowAnim" setToFinalAlpha="true" looping="REPEAT">
+				<Alpha childKey="NewItemTexture" smoothing="NONE" duration="0.8" order="1"
+					fromAlpha="1" toAlpha="0.35" />
+				<Alpha childKey="NewItemTexture" smoothing="NONE" duration="0.8" order="2"
+					fromAlpha="0.35" toAlpha="1" />
+			</AnimationGroup>
+			<AnimationGroup parentKey="flashAnim" setToFinalAlpha="true">
+				<Alpha childKey="flash" smoothing="OUT" duration="0.6" order="1" fromAlpha="1"
+					toAlpha="0" />
+			</AnimationGroup>
+		</Animations>
+		<Layers>
+			<Layer level="BORDER">
+				<Texture name="$parentIconTexture" parentKey="icon" />
+			</Layer>
+			<Layer level="ARTWORK" textureSubLevel="2">
+				<Texture parentKey="NewActionTexture" atlas="bags-newitem" useAtlasSize="false"
+					alphaMode="ADD" hidden="true">
+					<Size x="44" y="44" />
+					<Anchors>
+						<Anchor point="CENTER" />
+					</Anchors>
+				</Texture>
+				<FontString name="$parentCount" inherits="NumberFontNormal" justifyH="RIGHT"
+					hidden="true" parentKey="Count">
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="-5" y="2" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentStock" inherits="NumberFontNormalYellow" justifyH="LEFT"
+					hidden="true">
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="0" y="-2" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="OVERLAY" textureSubLevel="4">
+				<Texture name="$parentSearchOverlay" parentKey="searchOverlay" setAllPoints="true"
+					hidden="true">
+					<Color r="0" g="0" b="0" a="0.8" />
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<Texture parentKey="IconBorder" file="Interface\Common\WhiteIconFrame" hidden="true">
+					<Size x="37" y="37" />
+					<Anchors>
+						<Anchor point="CENTER" />
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY" textureSubLevel="1">
+				<Texture parentKey="IconOverlay" hidden="true">
+					<Size x="37" y="37" />
+					<Anchors>
+						<Anchor point="CENTER" />
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<NormalTexture name="$parentNormalTexture" file="Interface\Buttons\UI-Quickslot2">
+			<Size>
+				<AbsDimension x="64" y="64" />
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-1" />
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</NormalTexture>
+		<PushedTexture file="Interface\Buttons\UI-Quickslot-Depress" />
+		<HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD" />
+	</Button>
+</Ui>

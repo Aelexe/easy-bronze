@@ -17,4 +17,12 @@ function MigrateDatabase(db)
 
 		profile.version = 1
 	end
+
+	if (version < 2) then
+		profile.minimap = {
+			hide = false
+		}
+
+		profile.version = 2
+	end
 end

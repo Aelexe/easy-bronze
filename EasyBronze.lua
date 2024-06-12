@@ -6,11 +6,22 @@ EasyBronze.itemCache = {}
 EasyBronze.itemQueue = {}
 EasyBronze.gui = {}
 
+local function toggleMainFrame()
+	if EasyBronze.gui.consumablesFrame:IsVisible() then
+		EasyBronze.gui.consumablesFrame:Hide()
+	else
+		EasyBronze.gui.consumablesFrame:Show()
+	end
+end
+
 function EasyBronze:OnInitialize()
 	local default = {
 		gems = {
 			stats = {},
 			qualities = {}
+		},
+		minimap = {
+			hide = false
 		}
 	}
 
@@ -25,9 +36,18 @@ function EasyBronze:OnInitialize()
 	self.db = LibStub("AceDB-3.0"):New("EasyBronzeDB", { profile = default }, true)
 
 	MigrateDatabase(self.db)
+
+	local easyBronzeLdb = LibStub("LibDataBroker-1.1"):NewDataObject("EasyBronze", {
+		type = "launcher",
+		text = "Easy Bronze",
+		icon = "Interface\\Icons\\inv_10_specialreagentfoozles_coolegg_bronze",
+		OnClick = toggleMainFrame,
+	})
+	local icon = LibStub("LibDBIcon-1.0")
+	icon:Register("EasyBronze", easyBronzeLdb, self.db.profile.minimap)
 end
 
-EasyBronze:RegisterChatCommand("easybronze", "slashFunc")
+EasyBronze:RegisterChatCommand("easybronze", toggleMainFrame)
 
 EasyBronze:RegisterEvent("UNIT_SPELLCAST_START", function(event, ...)
 	local target, _, spellId = ...
@@ -44,20 +64,6 @@ EasyBronze:RegisterEvent("UNIT_SPELLCAST_START", function(event, ...)
 		EasyBronze:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", callback)
 	end
 end)
-
-function EasyBronze:slashFunc(input)
-	if ScrappingMachineFrame == nil or not ScrappingMachineFrame:IsVisible() then
-		self:Print("Scrapping Machine not open")
-		return
-	end
-	if input == "get" then
-		self:Print("Getting items")
-		self:createScrapQueue()
-	elseif input == "set" then
-		self:Print("Setting items")
-		self:loadScrapQueue()
-	end
-end
 
 EasyBronze.timeSinceLastUpdate = 0
 function EasyBronze:onUpdate(delta)

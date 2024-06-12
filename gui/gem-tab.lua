@@ -7,7 +7,6 @@ local gemTab = AceGUI:Create("ScrollFrame")
 
 gemTab:SetLayout("Flow")
 gemTab:SetFullWidth(true)
-gemTab:SetFullHeight(true)
 gemTab:SetHeight(160)
 
 local statLabel = AceGUI:Create("Label")

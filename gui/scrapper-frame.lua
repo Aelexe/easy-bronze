@@ -20,12 +20,14 @@ window.closebutton:Hide()
 local currentTab = nil
 local function selectTab(container, _, group)
 	if currentTab ~= nil then
+		tremove(container.children, 1)
+		currentTab.frame:SetParent(nil)
 		currentTab.frame:Hide()
-		currentTab.frame:SetParent(UIParent)
 	end
 
 	if group == "gems" then
-		container:AddChild(EasyBronze.gui.gemTab)
+		currentTab = EasyBronze.gui.gemTab
+		container:AddChild(currentTab)
 	end
 end
 
