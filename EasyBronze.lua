@@ -45,6 +45,14 @@ function EasyBronze:OnInitialize()
 	})
 	local icon = LibStub("LibDBIcon-1.0")
 	icon:Register("EasyBronze", easyBronzeLdb, self.db.profile.minimap)
+
+	EasyBronze.gui.consumablesFrame.frame:SetScript("OnShow", function()
+		RegisterAttributeDriver(EasyBronze.gui.consumablesFrame.frame, "state-visibility", "[combat]hide;show")
+	end)
+
+	EasyBronze.gui.consumablesFrame.frame:SetScript("OnHide", function()
+		UnregisterAttributeDriver(EasyBronze.gui.consumablesFrame.frame, "state-visibility")
+	end)
 end
 
 EasyBronze:RegisterChatCommand("easybronze", toggleMainFrame)

@@ -101,5 +101,4 @@ tabGroup:SetCallback("OnGroupSelected", selectTab)
 tabGroup:SelectTab("loot")
 mainFrame:AddChild(tabGroup)
 
-
 EasyBronze.gui.consumablesFrame = mainFrame;
