@@ -1,5 +1,7 @@
 local buttonIndex = 0
 
+local itemButtons = {}
+
 function CreateItemButton(itemId)
 	local button = CreateFrame("Button", "ItemButton_" .. buttonIndex, nil, "BronzeItemButtonTemplate");
 	buttonIndex = buttonIndex + 1
@@ -18,10 +20,9 @@ function CreateItemButton(itemId)
 			SetItemButtonQuality(button, rarity)
 		end
 	end
+	button.updateItemCount = updateItemCount;
 
 	updateItemCount()
-
-	EasyBronze:RegisterEvent("BAG_UPDATE", updateItemCount)
 
 	button:RegisterForClicks("AnyUp", "AnyDown")
 	button:EnableMouse(true)
@@ -53,17 +54,13 @@ function CreateItemButton(itemId)
 			GameTooltip_Hide()
 		end)
 
-	-- Hacky workaround to item counts not updating correctly.
-	button:SetScript("OnMouseDown", function()
-		EasyBronze:ScheduleTimer(updateItemCount, 0)
-		EasyBronze:ScheduleTimer(updateItemCount, 0.25)
-		EasyBronze:ScheduleTimer(updateItemCount, 0.5)
-	end)
-	button:SetScript("OnMouseUp", function()
-		EasyBronze:ScheduleTimer(updateItemCount, 0)
-		EasyBronze:ScheduleTimer(updateItemCount, 0.25)
-		EasyBronze:ScheduleTimer(updateItemCount, 0.5)
-	end)
+	tinsert(itemButtons, button)
 
 	return button
 end
+
+EasyBronze:RegisterEvent("BAG_UPDATE", function()
+	for _, button in ipairs(itemButtons) do
+		button.updateItemCount()
+	end
+end)
