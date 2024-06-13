@@ -7,7 +7,11 @@ function CreateItemButton(itemId)
 	buttonIndex = buttonIndex + 1
 	button:SetSize(40, 40)
 	local rarity = ItemAPI.getItemRarity(itemId)
-	local texture = nil
+
+	local texture = ItemAPI.getItemTexture(itemId, function(actualTexture)
+		SetItemButtonTexture(button, actualTexture)
+	end)
+	SetItemButtonTexture(button, texture)
 
 	local function updateItemCount()
 		local itemCount = BagsAPI.getItemCount(itemId)
@@ -30,16 +34,8 @@ function CreateItemButton(itemId)
 	button:SetAttribute("type", "item")
 	button:SetAttribute("item", ItemAPI.getItemName(itemId))
 
-	-- Textures can be nil if loaded early in the game launch lifecycle. This is a partial workaround.
-	-- TODO: Check repeatedly if still nil after load.
+	-- Item information can be nil if loaded early after game launch.
 	button:SetScript("OnShow", function(self)
-		if texture == nil then
-			texture = ItemAPI.getItemTexture(itemId)
-			if texture ~= nil then
-				SetItemButtonTexture(button, texture)
-			end
-		end
-
 		updateItemCount()
 	end)
 
