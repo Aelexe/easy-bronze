@@ -1,5 +1,12 @@
 # Easy Bronze
 
+## v0.0.4
+
+- Fix occasional missing item button textures.
+- Allow loot dialog to be closed via escape.
+- Hide loot dialog during combat.
+- Fix item count event listener.
+
 ## v0.0.3
 
 - Add loot interface.
