@@ -30,6 +30,8 @@ mainFrame.sizer_se:Hide()
 mainFrame.closebutton:ClearAllPoints()
 mainFrame.closebutton:SetPoint("TOPRIGHT", mainFrame.frame, "TOPRIGHT", -3, -3)
 mainFrame:Hide()
+_G["EasyBronzeMainFrame"] = mainFrame.frame
+tinsert(UISpecialFrames, "EasyBronzeMainFrame")
 
 local tab = AceGUI:Create("ScrollFrame")
 tab:SetFullWidth(true)
