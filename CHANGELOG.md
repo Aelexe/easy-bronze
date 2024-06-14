@@ -1,5 +1,10 @@
 # Easy Bronze
 
+## v0.0.5
+
+- Add gear upgrade interface and notifications.
+- Move loot interface to character sheet.
+
 ## v0.0.4
 
 - Fix occasional missing item button textures.

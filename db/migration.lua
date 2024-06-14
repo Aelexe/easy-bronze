@@ -25,4 +25,13 @@ function MigrateDatabase(db)
 
 		profile.version = 2
 	end
+
+	if (version < 3) then
+		profile.upgrades = {
+			chat = true,
+			sound = true
+		}
+
+		profile.version = 3
+	end
 end

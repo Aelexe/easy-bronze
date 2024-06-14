@@ -6,22 +6,17 @@ EasyBronze.itemCache = {}
 EasyBronze.itemQueue = {}
 EasyBronze.gui = {}
 
-local function toggleMainFrame()
-	if EasyBronze.gui.consumablesFrame:IsVisible() then
-		EasyBronze.gui.consumablesFrame:Hide()
-	else
-		EasyBronze.gui.consumablesFrame:Show()
-	end
-end
-
 function EasyBronze:OnInitialize()
+	-- Database Setup
+
 	local default = {
 		gems = {
 			stats = {},
 			qualities = {}
 		},
-		minimap = {
-			hide = false
+		upgrades = {
+			chat = true,
+			sound = true
 		}
 	}
 
@@ -37,41 +32,22 @@ function EasyBronze:OnInitialize()
 
 	MigrateDatabase(self.db)
 
-	local easyBronzeLdb = LibStub("LibDataBroker-1.1"):NewDataObject("EasyBronze", {
-		type = "launcher",
-		text = "Easy Bronze",
-		icon = "Interface\\Icons\\inv_10_specialreagentfoozles_coolegg_bronze",
-		OnClick = toggleMainFrame,
-	})
-	local icon = LibStub("LibDBIcon-1.0")
-	icon:Register("EasyBronze", easyBronzeLdb, self.db.profile.minimap)
+	EasyBronze.events:registerEvent("UNIT_SPELLCAST_START", function(event, ...)
+		local target, _, spellId = ...
+		if target == "player" and spellId == C_ScrappingMachineUI.GetScrapSpellID() then
+			EasyBronze.button:SetDisabled(true)
 
-	EasyBronze.gui.consumablesFrame.frame:SetScript("OnShow", function()
-		RegisterAttributeDriver(EasyBronze.gui.consumablesFrame.frame, "state-visibility", "[combat]hide;show")
-	end)
+			local callback = function()
+				EasyBronze.button:SetDisabled(false)
+				EasyBronze.events.unregisterEvent("UNIT_SPELLCAST_INTERRUPTED")
+				EasyBronze.events.unregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+			end
 
-	EasyBronze.gui.consumablesFrame.frame:SetScript("OnHide", function()
-		UnregisterAttributeDriver(EasyBronze.gui.consumablesFrame.frame, "state-visibility")
+			EasyBronze.events:registerEvent("UNIT_SPELLCAST_INTERRUPTED", callback)
+			EasyBronze.events:registerEvent("UNIT_SPELLCAST_SUCCEEDED", callback)
+		end
 	end)
 end
-
-EasyBronze:RegisterChatCommand("easybronze", toggleMainFrame)
-
-EasyBronze:RegisterEvent("UNIT_SPELLCAST_START", function(event, ...)
-	local target, _, spellId = ...
-	if target == "player" and spellId == C_ScrappingMachineUI.GetScrapSpellID() then
-		EasyBronze.button:SetDisabled(true)
-
-		local callback = function()
-			EasyBronze.button:SetDisabled(false)
-			EasyBronze:UnregisterEvent("UNIT_SPELLCAST_INTERRUPTED")
-			EasyBronze:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-		end
-
-		EasyBronze:RegisterEvent("UNIT_SPELLCAST_INTERRUPTED", callback)
-		EasyBronze:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", callback)
-	end
-end)
 
 EasyBronze.timeSinceLastUpdate = 0
 function EasyBronze:onUpdate(delta)
@@ -155,9 +131,7 @@ function EasyBronze:createScrapQueue()
 
 			if itemId and self:isItemScrappable(itemId) then
 				local cont_info = C_Container.GetContainerItemInfo(bag, slot)
-				local texture = tonumber(cont_info.iconFileID)
 				local itemCount = cont_info.stackCount
-				local quality = cont_info.quality
 				local itemLink = cont_info.hyperlink
 				local itemName, _, itemRarity, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemIcon, itemSellPrice, itemClassId, itemSubClassId, bindType, expacId, itemSetId, isCraftingReagent =
 					C_Item.GetItemInfo(itemLink)
@@ -354,12 +328,12 @@ function EasyBronze:isItemScrappable(itemId)
 	if self.itemCache[itemId] ~= nil then
 		return self.itemCache[itemId]
 	else
-		self.tooltipReader:ClearLines()
+		self.tooltipScanner:ClearLines()
 		if C_Item.GetItemInfo(itemId) then
-			self.tooltipReader:SetItemByID(itemId)
-			for i = self.tooltipReader:NumLines(), self.tooltipReader:NumLines() - 3, -1 do
+			self.tooltipScanner:SetItemByID(itemId)
+			for i = self.tooltipScanner:NumLines(), self.tooltipScanner:NumLines() - 3, -1 do
 				if i >= 1 then
-					local text = _G["EasyBronzeTooltipReaderTextLeft" .. i]:GetText()
+					local text = _G["EasyBronzeTooltipScannerTextLeft" .. i]:GetText()
 					if text == ITEM_SCRAPABLE_NOT then
 						self.itemCache[itemId] = false
 						return false

@@ -14,6 +14,8 @@ if C_AddOns.IsAddOnLoaded("ElvUI") then
 end
 
 window:SetPoint('TOP', ScrappingMachineFrame, 'BOTTOM', 0, verticalOffset)
+window.sizer_s:Hide()
+window.sizer_e:Hide()
 window.sizer_se:Hide()
 window.closebutton:Hide()
 

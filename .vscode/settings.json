@@ -35,6 +35,17 @@
 		"RegisterStateDriver",
 		"RegisterAttributeDriver",
 		"UnregisterAttributeDriver",
-		"UnregisterStateDriver"
+		"UnregisterStateDriver",
+		"CharacterFrame",
+		"UISpecialFrames",
+		"ITEM_UPGRADE_TOOLTIP_FORMAT",
+		"ITEM_LEVEL",
+		"class",
+		"ChatEdit_InsertLink",
+		"INVTYPE_FEET",
+		"FEETSLOT",
+		"OpenAllBags",
+		"DressUpItemLink",
+		"SECONDARYHANDSLOT"
 	]
 }

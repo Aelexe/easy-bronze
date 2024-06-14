@@ -55,7 +55,7 @@ function CreateItemButton(itemId)
 	return button
 end
 
-EasyBronze:RegisterEvent("BAG_UPDATE", function()
+EasyBronze.events:registerEvent("BAG_UPDATE", function()
 	for _, button in ipairs(itemButtons) do
 		button.updateItemCount()
 	end
