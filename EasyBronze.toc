@@ -1,6 +1,6 @@
 ## Interface: 100207
 ## Title: Easy Bronze
-## Version: 0.0.5
+## Version: 0.0.6
 ## Author: Aelexe
 ## Notes: Adds gear and gems to the unraveling sands interface, based on configurable settings.
 ## License: All rights reserved. Do not redistribute, in whole or in part, without explicit prior permission from the author.

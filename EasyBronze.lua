@@ -37,14 +37,17 @@ function EasyBronze:OnInitialize()
 		if target == "player" and spellId == C_ScrappingMachineUI.GetScrapSpellID() then
 			EasyBronze.button:SetDisabled(true)
 
+			local unregisters = {}
+
 			local callback = function()
 				EasyBronze.button:SetDisabled(false)
-				EasyBronze.events.unregisterEvent("UNIT_SPELLCAST_INTERRUPTED")
-				EasyBronze.events.unregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+				for _, unregister in ipairs(unregisters) do
+					unregister()
+				end
 			end
 
-			EasyBronze.events:registerEvent("UNIT_SPELLCAST_INTERRUPTED", callback)
-			EasyBronze.events:registerEvent("UNIT_SPELLCAST_SUCCEEDED", callback)
+			tinsert(unregisters, EasyBronze.events:registerEvent("UNIT_SPELLCAST_INTERRUPTED", callback))
+			tinsert(unregisters, EasyBronze.events:registerEvent("UNIT_SPELLCAST_SUCCEEDED", callback))
 		end
 	end)
 end
