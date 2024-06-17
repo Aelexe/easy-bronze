@@ -30,7 +30,7 @@ lootTab:SetHeight(200)
 local label = addLabel("Caches", lootTab)
 addSpacers(5, lootTab)
 
-local cacheButton = CreateItemButton(EasyBronze.CACHE.id)
+local cacheButton = EasyBronze.CreateItemButton(EasyBronze.CACHE.id)
 cacheButton:SetParent(lootTab.content)
 cacheButton:SetPoint('TOPLEFT', label.frame, "BOTTOMLEFT", 0, -5)
 
@@ -40,7 +40,7 @@ addSpacers(5, lootTab)
 
 local lastButton = nil
 for _, spool in ipairs(EasyBronze.SPOOLS) do
-	local button = CreateItemButton(spool.id)
+	local button = EasyBronze.CreateItemButton(spool.id)
 	button:SetParent(lootTab.content)
 
 	if lastButton == nil then
@@ -58,7 +58,7 @@ addSpacers(3, lootTab)
 
 local lastButton = nil
 for _, cache in ipairs(EasyBronze.BRONZE_CACHES) do
-	local button = CreateItemButton(cache.id)
+	local button = EasyBronze.CreateItemButton(cache.id)
 	button:SetParent(lootTab.content)
 
 	if lastButton == nil then

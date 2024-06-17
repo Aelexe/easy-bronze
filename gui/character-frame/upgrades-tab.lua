@@ -48,7 +48,7 @@ local function createUpgradesTab()
 				button.SetLink(item.link)
 				button.SetEquip(item.bag, item.slot, upgradeSlotId)
 			else
-				button = CreateGearButton(item.link, item.bag, item.slot, upgradeSlotId)
+				button = EasyBronze.CreateGearButton(item.link, item.bag, item.slot, upgradeSlotId)
 			end
 			button:Show()
 			button:SetParent(upgradesTab.frame)

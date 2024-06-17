@@ -1,10 +1,7 @@
 local buttonIndex = 0
 
-function CreateGearButton(gearLink, bag, slot, equipSlotId)
-	--- @class GearButton: Button
-	--- @field Ahhh string
-	--- @field SetLink number
-	local button = CreateFrame("Button", "ItemButton_" .. buttonIndex, nil, "BronzeItemButtonTemplate");
+EasyBronze.CreateGearButton = function(gearLink, bag, slot, equipSlotId)
+	local button = CreateFrame("Button", "EasyBronzeGearButton_" .. buttonIndex, nil, "EasyBronzeItemButton");
 	buttonIndex = buttonIndex + 1
 	button:SetSize(40, 40)
 

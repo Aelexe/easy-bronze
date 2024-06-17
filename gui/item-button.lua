@@ -2,8 +2,8 @@ local buttonIndex = 0
 
 local itemButtons = {}
 
-function CreateItemButton(itemId)
-	local button = CreateFrame("Button", "ItemButton_" .. buttonIndex, nil, "BronzeItemButtonTemplate");
+EasyBronze.CreateItemButton = function(itemId)
+	local button = CreateFrame("Button", "EasyBronzeItemButton_" .. buttonIndex, nil, "EasyBronzeSecureItemButton");
 	buttonIndex = buttonIndex + 1
 	button:SetSize(40, 40)
 	local rarity = ItemAPI.getItemRarity(itemId)
@@ -45,10 +45,7 @@ function CreateItemButton(itemId)
 		GameTooltip:Show()
 	end)
 
-	button:SetScript('OnLeave',
-		function(self)
-			GameTooltip_Hide()
-		end)
+	button:SetScript('OnLeave', GameTooltip_Hide)
 
 	tinsert(itemButtons, button)
 
