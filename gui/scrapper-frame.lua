@@ -6,7 +6,9 @@ window:SetWidth(ScrappingMachineFrame:GetWidth())
 window:SetHeight(ScrappingMachineFrame:GetHeight())
 window:SetLayout("List")
 window.frame:SetParent(ScrappingMachineFrame)
+-- Put the scrapper frame behind the Blizzard scrapper, and disable popping forward when clicked.
 window.frame:SetFrameLevel(ScrappingMachineFrame:GetFrameLevel() - 1)
+window.frame:SetToplevel(false)
 
 local verticalOffset = 32
 if C_AddOns.IsAddOnLoaded("ElvUI") then
