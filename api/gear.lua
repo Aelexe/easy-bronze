@@ -1,6 +1,25 @@
 GearAPI = {
-	--- func description
-	---@param equipSlot string
+	--- Returns an array of bags and slots of items used in the player's equipment sets.
+	getEquipmentSetSlots = function()
+		local equipmentSetSlots = {}
+
+		local equipmentSetIds = C_EquipmentSet.GetEquipmentSetIDs()
+
+		for _, equipmentSetId in ipairs(equipmentSetIds) do
+			local itemLocations = C_EquipmentSet.GetItemLocations(equipmentSetId)
+			for i = 0, 19 do
+				local itemLocation = itemLocations[i]
+				if itemLocation ~= nil then
+					local player, bank, bags, voidStorage, slot, bag = EquipmentManager_UnpackLocation(itemLocation)
+					if bags and not bank then
+						table.insert(equipmentSetSlots, { bag = bag, slot = slot })
+					end
+				end
+			end
+		end
+
+		return equipmentSetSlots
+	end,
 	equipSlotToInventorySlots = function(equipSlot)
 		local inventorySlots = {}
 

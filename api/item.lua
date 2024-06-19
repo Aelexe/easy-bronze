@@ -1,3 +1,5 @@
+local scrappableCache = {}
+
 ItemAPI = {
 	getItemName = function(itemId)
 		local itemName, _ = C_Item.GetItemInfo(itemId)
@@ -26,6 +28,33 @@ ItemAPI = {
 	getItemLevel = function(itemLink)
 		local _, _, _, itemLevel = C_Item.GetItemInfo(itemLink)
 		return itemLevel
+	end,
+	isItemScrappable = function(itemId)
+		if scrappableCache[itemId] ~= nil then
+			return scrappableCache[itemId]
+		else
+			local tooltipScanner = EasyBronze.tooltipScanner
+			tooltipScanner:ClearLines()
+			if C_Item.GetItemInfo(itemId) then
+				tooltipScanner:SetItemByID(itemId)
+				for i = tooltipScanner:NumLines(), tooltipScanner:NumLines() - 3, -1 do
+					if i >= 1 then
+						local text = _G["EasyBronzeTooltipScannerTextLeft" .. i]:GetText()
+						if text == ITEM_SCRAPABLE_NOT then
+							scrappableCache[itemId] = false
+							return false
+						elseif text == ITEM_SCRAPABLE then
+							scrappableCache[itemId] = true
+							return true
+						end
+					end
+				end
+				return false
+			else
+				-- TODO: Handle tooltip scan failures if needed.
+				return false
+			end
+		end
 	end,
 	getQualityName = function(qualityId)
 		local qualityName = "Poor"

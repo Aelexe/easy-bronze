@@ -1,4 +1,16 @@
 BagsAPI = {
+	--- Returns an array of bags and slots that are empty.
+	getEmptyBagSlots = function()
+		local emptySlots = {}
+		for bag = 0, 4 do
+			for slot = 1, C_Container.GetContainerNumSlots(bag) do
+				if C_Container.GetContainerItemID(bag, slot) == nil then
+					table.insert(emptySlots, { bag = bag, slot = slot })
+				end
+			end
+		end
+		return emptySlots
+	end,
 	getItemCount = function(itemId)
 		local itemCount = 0
 

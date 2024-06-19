@@ -11,6 +11,7 @@
 embeds.xml
 
 db\migration.lua
+api\addons.lua
 api\bags.lua
 api\gear.lua
 api\item.lua
@@ -18,6 +19,7 @@ api\item.lua
 EasyBronze.lua
 constants.lua
 modules\events.lua
+modules\scrapper.lua
 modules\upgrades.lua
 
 gui\frames.xml

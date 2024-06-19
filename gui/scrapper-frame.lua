@@ -11,7 +11,7 @@ window.frame:SetFrameLevel(ScrappingMachineFrame:GetFrameLevel() - 1)
 window.frame:SetToplevel(false)
 
 local verticalOffset = 32
-if C_AddOns.IsAddOnLoaded("ElvUI") then
+if AddonsAPI.ElvUI.isRunning() then
 	verticalOffset = 0
 end
 
@@ -20,6 +20,7 @@ window.sizer_s:Hide()
 window.sizer_e:Hide()
 window.sizer_se:Hide()
 window.closebutton:Hide()
+
 
 local currentTab = nil
 local function selectTab(container, _, group)
@@ -36,13 +37,13 @@ local function selectTab(container, _, group)
 end
 
 -- Queue Scrap Button
-local button = AceGUI:Create("Button")
-button:SetFullWidth(true)
-button:SetText("Queue Scrap")
-button:SetCallback("OnClick", function()
-	EasyBronze:loadScrapper()
+local queueScrapButton = AceGUI:Create("Button")
+queueScrapButton:SetFullWidth(true)
+queueScrapButton:SetText("Queue Scrap")
+queueScrapButton:SetCallback("OnClick", function()
+	EasyBronze.scrapper:loadScrapper()
 end)
-window:AddChild(button)
+window:AddChild(queueScrapButton)
 
 local tabGroup = AceGUI:Create("TabGroup")
 tabGroup:SetFullWidth(true)
@@ -52,8 +53,39 @@ tabGroup:SetCallback("OnGroupSelected", selectTab)
 tabGroup:SelectTab("gems")
 window:AddChild(tabGroup)
 
-window.frame:SetScript("OnUpdate", function(_, delta)
-	EasyBronze:onUpdate(delta)
+local unregisterSpellCastEvent = nil
+
+window.frame:SetScript("OnShow", function()
+	if unregisterSpellCastEvent ~= nil then
+		unregisterSpellCastEvent()
+		unregisterSpellCastEvent = nil
+	end
+
+	unregisterSpellCastEvent = EasyBronze.events:registerEvent("UNIT_SPELLCAST_START", function(event, ...)
+		local target, _, spellId = ...
+		if target == "player" and spellId == C_ScrappingMachineUI.GetScrapSpellID() then
+			queueScrapButton:SetDisabled(true)
+
+			local unregisters = {}
+
+			local callback = function()
+				queueScrapButton:SetDisabled(false)
+				for _, unregister in ipairs(unregisters) do
+					unregister()
+				end
+			end
+
+			tinsert(unregisters, EasyBronze.events:registerEvent("UNIT_SPELLCAST_INTERRUPTED", callback))
+			tinsert(unregisters, EasyBronze.events:registerEvent("UNIT_SPELLCAST_SUCCEEDED", callback))
+		end
+	end)
 end)
 
-EasyBronze.button = button
+window.frame:SetScript("OnHide", function()
+	if unregisterSpellCastEvent ~= nil then
+		unregisterSpellCastEvent()
+		unregisterSpellCastEvent = nil
+	end
+end)
+
+EasyBronze.gui.scrapperFrame = window

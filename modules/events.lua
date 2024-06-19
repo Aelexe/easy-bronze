@@ -24,6 +24,28 @@ local eventsModule = {
 				EasyBronze:UnregisterEvent(event)
 			end
 		end
+	end,
+
+	updateHooked = false,
+	updates = {},
+	registerUpdate = function(self, callback)
+		if not self.updateHooked then
+			self.updateHooked = true
+			function EasyBronze:onUpdate(delta)
+				self.timeSinceLastUpdate = self.timeSinceLastUpdate + delta
+
+				if self.updateMode == "gem-split" then
+					if self.timeSinceLastUpdate > 0.1 then
+						self:splitGems()
+						self.timeSinceLastUpdate = 0
+					end
+				end
+			end
+		end
+		EasyBronze:RegisterUpdate(callback)
+		return function()
+			EasyBronze:UnregisterUpdate(callback)
+		end
 	end
 }
 
