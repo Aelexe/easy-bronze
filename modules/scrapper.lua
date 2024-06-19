@@ -89,14 +89,26 @@ local scrapperModule = {
 
 					-- Don't include gear that's part of an equipment set.
 					if scrapType == "Gear" then
+						-- Stop equipment set gear from being scrapped.
 						for _, equipmentSlot in ipairs(equipmentSlots) do
 							if equipmentSlot.bag == bag and equipmentSlot.slot == slot then
 								includeItem = false
 							end
 						end
 
+						-- Stop Outfitter set gear from being scrapped.
 						if includeItem and isOutfitterRunning then
 							includeItem = not AddonsAPI.Outfitter.isOutfitUsingItem(bag, slot)
+						end
+
+						-- Stop upgrades from being scrapped.
+						if includeItem then
+							for _, upgrade in pairs(EasyBronze.upgrades.upgrades) do
+								if upgrade.bag == bag and upgrade.slot == slot then
+									includeItem = false
+									break
+								end
+							end
 						end
 					end
 
