@@ -1,6 +1,6 @@
 # Easy Bronze
 
-A World of Warcraft addons to aid in the loading of gear and gems into the unraveling sands interface, based on configurable settings.
+A World of Warcraft - Pandaria Remix utility addon for scrapping items into bronze, opening loot containers, and gear upgrade notifications.
 
 <div>
 <img src="./docs/scrap-gui.png" height="300" >
@@ -10,14 +10,13 @@ A World of Warcraft addons to aid in the loading of gear and gems into the unrav
 
 ## Features
 
-- Easy loading of the unraveling sands interface with a click of a button.
-- Loads gear.
-- Loads gems, filtered by stats and qualities you choose.
+- Easy loading of the unraveling sands interface.
+- Loads gear, filtering out equipment sets and upgrades.
+- Loads gems, filtered by configurable stats and qualities.
 - Loot interface for easy opening of bronze caches, spools, and gear caches.
-- Gear upgrade notifications and equp interface.
+- Gear upgrade notifications and equip interface.
 
 ## Planned Features
 
-- Exclude item level upgrades.
-- Exclude quality upgrades.
-- One button gem combining.
+- Gem loadout manager.
+- Gem combining.

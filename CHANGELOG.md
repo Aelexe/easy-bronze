@@ -1,5 +1,12 @@
 # Easy Bronze
 
+## v0.0.7
+
+- Prevent upgrades from being scrapped.
+- Lock scrapper frame to below Blizzard scrapper frame.
+- Fix frame attachment points to resolve BlizzMove error.
+- Fix robes not being identified as upgrades.
+
 ## v0.0.6
 
 - Fix scrapping unregister event issue.
