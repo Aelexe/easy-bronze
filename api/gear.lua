@@ -31,7 +31,7 @@ GearAPI = {
 			tinsert(inventorySlots, "SHOULDERSLOT")
 		elseif equipSlot == "INVTYPE_CLOAK" then
 			tinsert(inventorySlots, "BACKSLOT")
-		elseif equipSlot == "INVTYPE_CHEST" then
+		elseif equipSlot == "INVTYPE_CHEST" or equipSlot == "INVTYPE_ROBE" then
 			tinsert(inventorySlots, "CHESTSLOT")
 		elseif equipSlot == "INVTYPE_WRIST" then
 			tinsert(inventorySlots, "WRISTSLOT")
@@ -58,9 +58,7 @@ GearAPI = {
 			tinsert(inventorySlots, "MAINHANDSLOT")
 		elseif equipSlot == "INVTYPE_WEAPONMAINHAND" then
 			tinsert(inventorySlots, "MAINHANDSLOT")
-		elseif equipSlot == "INVTYPE_WEAPONOFFHAND" then
-			tinsert(inventorySlots, "SECONDARYHANDSLOT")
-		elseif equipSlot == "INVTYPE_HOLDABLE" then
+		elseif equipSlot == "INVTYPE_WEAPONOFFHAND" or equipSlot == "INVTYPE_HOLDABLE" then
 			tinsert(inventorySlots, "SECONDARYHANDSLOT")
 		elseif equipSlot == "INVTYPE_RANGED" then
 			tinsert(inventorySlots, "MAINHANDSLOT")
