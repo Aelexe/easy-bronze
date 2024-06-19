@@ -11,8 +11,9 @@ window.sizer_e:Hide()
 window.sizer_se:Hide()
 window.closebutton:ClearAllPoints()
 window.closebutton:SetPoint("TOPRIGHT", window.frame, "TOPRIGHT", -3, -3)
-window:SetPoint("TOPLEFT", CharacterFrame, "TOPRIGHT", 0, 0)
 window.frame:SetParent(CharacterFrame)
+window:ClearAllPoints()
+window:SetPoint("TOPLEFT", CharacterFrame, "TOPRIGHT", 0, 0)
 
 local currentTab = nil
 local function selectTab(container, _, group)

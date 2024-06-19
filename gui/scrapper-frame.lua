@@ -15,6 +15,7 @@ if AddonsAPI.ElvUI.isRunning() then
 	verticalOffset = 0
 end
 
+window:ClearAllPoints()
 window:SetPoint('TOP', ScrappingMachineFrame, 'BOTTOM', 0, verticalOffset)
 window.sizer_s:Hide()
 window.sizer_e:Hide()
