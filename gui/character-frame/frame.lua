@@ -45,10 +45,4 @@ CharacterFrame:HookScript("OnShow", function()
 	window.frame:Show()
 end)
 
-window.frame:SetScript("OnShow", function()
-	RegisterAttributeDriver(window.frame, "state-visibility", "[combat]hide;show")
-end)
-
-window.frame:SetScript("OnHide", function()
-	UnregisterAttributeDriver(window.frame, "state-visibility")
-end)
+RegisterAttributeDriver(window.frame, "state-visibility", "[combat]hide;show")
