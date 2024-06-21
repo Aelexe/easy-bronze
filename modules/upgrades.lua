@@ -70,6 +70,14 @@ local upgradesModule = {
 				if equippedItemLink ~= nil then
 					local name, _, quality, itemLevel = C_Item.GetItemInfo(equippedItemLink)
 
+					-- If an item is missing its item level then details have not been cached. Reschedule an upgrade check.
+					if item.itemLevel == nil or itemLevel == nil then
+						EasyBronze:ScheduleTimer(function()
+							self:loadUpgrades()
+						end, 1)
+						return
+					end
+
 					-- An item is an upgrade if its rarity is greater, or rarity is equal and item level is greater.
 					if item.quality > quality or (item.quality == quality and item.itemLevel > itemLevel) then
 						itemIsUpgrade = true
