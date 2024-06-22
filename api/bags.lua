@@ -1,4 +1,4 @@
-BagsAPI = {
+EasyBronze.apis.bags = {
 	--- Returns an array of bags and slots that are empty.
 	getEmptyBagSlots = function()
 		local emptySlots = {}

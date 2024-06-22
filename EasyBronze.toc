@@ -11,12 +11,12 @@
 embeds.xml
 
 db\migration.lua
+
+EasyBronze.lua
 api\addons.lua
 api\bags.lua
 api\gear.lua
 api\item.lua
-
-EasyBronze.lua
 constants.lua
 modules\events.lua
 modules\scrapper.lua

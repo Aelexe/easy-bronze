@@ -1,4 +1,4 @@
-GearAPI = {
+EasyBronze.apis.gear = {
 	--- Returns an array of bags and slots of items used in the player's equipment sets.
 	getEquipmentSetSlots = function()
 		local equipmentSetSlots = {}

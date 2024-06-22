@@ -9,7 +9,7 @@ local scrapperModule = {
 	createScrapQueue = function(self)
 		table.wipe(self.itemQueue)
 
-		local isOutfitterRunning = AddonsAPI.Outfitter.isRunning()
+		local isOutfitterRunning = EasyBronze.apis.addons.Outfitter.isRunning()
 
 		local scrappableGems = {}
 
@@ -65,13 +65,13 @@ local scrapperModule = {
 			end
 		end
 
-		local equipmentSlots = GearAPI.getEquipmentSetSlots()
+		local equipmentSlots = EasyBronze.apis.gear.getEquipmentSetSlots()
 
 		for bag = 0, 4 do
 			for slot = 1, C_Container.GetContainerNumSlots(bag) do
 				local itemId = C_Container.GetContainerItemID(bag, slot)
 
-				if itemId and ItemAPI.isItemScrappable(itemId) then
+				if itemId and EasyBronze.apis.item.isItemScrappable(itemId) then
 					local cont_info = C_Container.GetContainerItemInfo(bag, slot)
 					local itemCount = cont_info.stackCount
 					local itemLink = cont_info.hyperlink
@@ -98,7 +98,7 @@ local scrapperModule = {
 
 						-- Stop Outfitter set gear from being scrapped.
 						if includeItem and isOutfitterRunning then
-							includeItem = not AddonsAPI.Outfitter.isOutfitUsingItem(bag, slot)
+							includeItem = not EasyBronze.apis.addons.Outfitter.isOutfitUsingItem(bag, slot)
 						end
 
 						-- Stop upgrades from being scrapped.
@@ -154,7 +154,7 @@ local scrapperModule = {
 		-- Reprocess gems to split stacks up.
 		if scrapType == "Gem" then
 			table.wipe(self.gemSplits)
-			local emptySlots = BagsAPI.getEmptyBagSlots()
+			local emptySlots = EasyBronze.apis.bags.getEmptyBagSlots()
 			-- The number of individual items processed for the scrapper.
 			local itemCount = 0
 			-- The slot index to be used for the next split.

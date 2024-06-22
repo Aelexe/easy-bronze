@@ -1,4 +1,4 @@
-AddonsAPI = {
+EasyBronze.apis.addons = {
 	ElvUI = {
 		isRunning = function()
 			return C_AddOns.IsAddOnLoaded("ElvUI")
@@ -15,9 +15,9 @@ AddonsAPI = {
 			return Outfitter:GetOutfitsUsingItem(outfitterItemInfo)
 		end,
 		isOutfitUsingItem = function(bag, slot)
-			local outfitterItemInfo = AddonsAPI.Outfitter.getBagItemInfo(bag, slot)
+			local outfitterItemInfo = EasyBronze.apis.addons.Outfitter.getBagItemInfo(bag, slot)
 			if outfitterItemInfo then
-				local outfits = AddonsAPI.Outfitter.getOutfitsUsingItem(outfitterItemInfo)
+				local outfits = EasyBronze.apis.addons.Outfitter.getOutfitsUsingItem(outfitterItemInfo)
 				if outfits then
 					return true
 				end

@@ -6,15 +6,15 @@ EasyBronze.CreateItemButton = function(itemId)
 	local button = CreateFrame("Button", "EasyBronzeItemButton_" .. buttonIndex, nil, "EasyBronzeSecureItemButton");
 	buttonIndex = buttonIndex + 1
 	button:SetSize(40, 40)
-	local rarity = ItemAPI.getItemRarity(itemId)
+	local rarity = EasyBronze.apis.item.getItemRarity(itemId)
 
-	local texture = ItemAPI.getItemTexture(itemId, function(actualTexture)
+	local texture = EasyBronze.apis.item.getItemTexture(itemId, function(actualTexture)
 		SetItemButtonTexture(button, actualTexture)
 	end)
 	SetItemButtonTexture(button, texture)
 
 	local function updateItemCount()
-		local itemCount = BagsAPI.getItemCount(itemId)
+		local itemCount = EasyBronze.apis.bags.getItemCount(itemId)
 		SetItemButtonCount(button, itemCount)
 		if itemCount == 0 then
 			SetItemButtonDesaturated(button, true)
@@ -32,7 +32,7 @@ EasyBronze.CreateItemButton = function(itemId)
 	button:EnableMouse(true)
 	button:SetMouseClickEnabled(true)
 	button:SetAttribute("type", "item")
-	button:SetAttribute("item", ItemAPI.getItemName(itemId))
+	button:SetAttribute("item", EasyBronze.apis.item.getItemName(itemId))
 
 	-- Item information can be nil if loaded early after game launch.
 	button:SetScript("OnShow", function(self)

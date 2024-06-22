@@ -1,6 +1,6 @@
 local scrappableCache = {}
 
-ItemAPI = {
+EasyBronze.apis.item = {
 	getItemName = function(itemId)
 		local itemName, _ = C_Item.GetItemInfo(itemId)
 		return itemName

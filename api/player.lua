@@ -1,4 +1,4 @@
-PlayerAPI = {
+EasyBronze.apis.player = {
 	getPlayerLevel = function()
 		return UnitLevel("player")
 	end,
@@ -7,7 +7,7 @@ PlayerAPI = {
 		return playerClass
 	end,
 	getPlayerArmorType = function()
-		local playerClass = PlayerAPI.getPlayerClass()
+		local playerClass = EasyBronze.apis.player.getPlayerClass()
 
 		if playerClass == "MAGE" or playerClass == "PRIEST" or playerClass == "WARLOCK" then
 			return "CLOTH"
@@ -18,5 +18,5 @@ PlayerAPI = {
 		elseif playerClass == "DEATHKNIGHT" or playerClass == "PALADIN" or playerClass == "WARRIOR" then
 			return "PLATE"
 		end
-	end,
+	end
 }

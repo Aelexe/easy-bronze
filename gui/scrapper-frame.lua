@@ -13,7 +13,7 @@ window.frame:SetFrameLevel(ScrappingMachineFrame:GetFrameLevel() - 1)
 window.frame:SetToplevel(false)
 
 local verticalOffset = 32
-if AddonsAPI.ElvUI.isRunning() then
+if EasyBronze.apis.addons.ElvUI.isRunning() then
 	verticalOffset = 0
 end
 

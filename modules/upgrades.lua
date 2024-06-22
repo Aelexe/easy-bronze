@@ -12,14 +12,14 @@ local function alertUpgrade(upgrade)
 	end
 
 	local message = "Upgrade: |c" ..
-		ItemAPI.getQualityColor(upgrade.quality) ..
+		EasyBronze.apis.item.getQualityColor(upgrade.quality) ..
 		upgrade.name ..
 		"|r (" .. upgrade.itemLevel .. ") > "
 
 	if upgrade.replaces ~= nil then
 		message = message ..
 			"|c" ..
-			ItemAPI.getQualityColor(upgrade.replaces.quality) ..
+			EasyBronze.apis.item.getQualityColor(upgrade.replaces.quality) ..
 			upgrade.replaces.name ..
 			"|r (" .. upgrade.replaces.itemLevel .. ")"
 	else
@@ -50,13 +50,13 @@ local upgradesModule = {
 		-- Table of upgrades for the current check.
 		local upgrades = {}
 
-		local gear = BagsAPI.getGearInBags()
+		local gear = EasyBronze.apis.bags.getGearInBags()
 
 		-- Iterate the bag gear and add any upgrades to the upgrade table.
 		for _, item in ipairs(gear) do
 			local equipSlot = item.equipSlot
 
-			local inventorySlots = GearAPI.equipSlotToInventorySlots(equipSlot)
+			local inventorySlots = EasyBronze.apis.gear.equipSlotToInventorySlots(equipSlot)
 
 			-- Check whether the gear is an upgrade against each valid slot.
 			for _, inventorySlot in ipairs(inventorySlots) do

@@ -3,7 +3,7 @@ local AceGUI = LibStub("AceGUI-3.0")
 -- Window
 local window = AceGUI:Create("Window")
 window:SetTitle("Easy Bronze")
-window:SetWidth(ScrappingMachineFrame:GetWidth())
+window:SetWidth(333)
 window:SetHeight(CharacterFrame:GetHeight())
 window:SetLayout("List")
 window.sizer_s:Hide()
