@@ -1,3 +1,5 @@
+C_AddOns.LoadAddOn("Blizzard_ScrappingMachineUI")
+
 local AceGUI = LibStub("AceGUI-3.0")
 
 -- Window
