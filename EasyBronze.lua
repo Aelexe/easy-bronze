@@ -2,6 +2,16 @@ EasyBronze = LibStub("AceAddon-3.0"):NewAddon("Easy Bronze", "AceConsole-3.0", "
 
 EasyBronze.gui = {}
 EasyBronze.apis = {}
+EasyBronze.inits = {}
+
+local function initialiseFrames()
+	if EasyBronze.apis.player.isTimeRunner() then
+		for _, init in ipairs(EasyBronze.inits) do
+			init()
+		end
+		EasyBronze.inits = {}
+	end
+end
 
 function EasyBronze:OnInitialize()
 	-- Database Setup
@@ -28,4 +38,9 @@ function EasyBronze:OnInitialize()
 	self.db = LibStub("AceDB-3.0"):New("EasyBronzeDB", { profile = default }, true)
 
 	MigrateDatabase(self.db)
+
+	-- Blizzard does not correctly report whether a character is a timerunner on a fresh login, so check multiple times.
+	initialiseFrames()
+	EasyBronze:ScheduleTimer(initialiseFrames, 1)
+	EasyBronze:ScheduleTimer(initialiseFrames, 5)
 end

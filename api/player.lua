@@ -18,5 +18,8 @@ EasyBronze.apis.player = {
 		elseif playerClass == "DEATHKNIGHT" or playerClass == "PALADIN" or playerClass == "WARRIOR" then
 			return "PLATE"
 		end
+	end,
+	isTimeRunner = function()
+		return PlayerGetTimerunningSeasonID and PlayerGetTimerunningSeasonID() ~= nil
 	end
 }
