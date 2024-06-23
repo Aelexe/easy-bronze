@@ -1,5 +1,9 @@
 # Easy Bronze
 
+## v0.0.8
+
+- Various bug fixes and minor improvements.
+
 ## v0.0.7
 
 - Prevent upgrades from being scrapped.

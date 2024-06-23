@@ -1,6 +1,6 @@
 ## Interface: 100207
 ## Title: Easy Bronze
-## Version: 0.0.7
+## Version: 0.0.8
 ## Author: Aelexe
 ## Notes: Pandaria Remix utility addon for scrapping items into bronze, opening loot containers, and gear upgrade notifications.
 ## License: All rights reserved. Do not redistribute, in whole or in part, without explicit prior permission from the author.
