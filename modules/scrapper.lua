@@ -80,13 +80,13 @@ tinsert(EasyBronze.inits, function()
 							C_Item.GetItemInfo(itemLink)
 
 						local scrapType = nil
-						if itemType == "Armor" or itemType == "Weapon" then
+						if itemClassId == Enum.ItemClass.Armor or itemClassId == Enum.ItemClass.Weapon then
 							scrapType = "Gear"
-						elseif itemType == "Gem" then
+						elseif itemClassId == Enum.ItemClass.Gem then
 							scrapType = "Gem"
 						end
 
-						local includeItem = true;
+						local includeItem = scrapType ~= nil;
 
 						-- Don't include gear that's part of an equipment set.
 						if scrapType == "Gear" then
