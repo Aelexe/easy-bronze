@@ -1,5 +1,10 @@
 # Easy Bronze
 
+## v0.0.9
+
+- Fix scrapper for non-English languages.
+- Fix shift not toggling item comparisons while hovering an upgrade.
+
 ## v0.0.8
 
 - Various bug fixes and minor improvements.
