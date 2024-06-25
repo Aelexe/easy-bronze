@@ -27,7 +27,7 @@ tinsert(EasyBronze.inits, function()
 	lootTab:SetFullWidth(true)
 	lootTab:SetHeight(200)
 
-	-- Spools
+	-- Caches
 	local label = addLabel("Caches", lootTab)
 	addSpacers(5, lootTab)
 
@@ -53,7 +53,7 @@ tinsert(EasyBronze.inits, function()
 		lastButton = button
 	end
 
-	-- Caches
+	-- Bronze Caches
 	local label = addLabel("Bronze", lootTab)
 	addSpacers(3, lootTab)
 

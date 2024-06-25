@@ -5,26 +5,38 @@ EasyBronze.CreateGearButton = function(gearLink, bag, slot, equipSlotId)
 	buttonIndex = buttonIndex + 1
 	button:SetSize(40, 40)
 
-	local rarity = EasyBronze.apis.item.getItemRarity(gearLink)
-	SetItemButtonQuality(button, rarity)
-
-	local texture = EasyBronze.apis.item.getItemTexture(gearLink, function(actualTexture)
-		SetItemButtonTexture(button, actualTexture)
+	EasyBronze.apis.item.getItemRarity(gearLink, function(itemRarity)
+		SetItemButtonQuality(button, itemRarity)
 	end)
-	SetItemButtonTexture(button, texture)
+
+	SetItemButtonTexture(button, EasyBronze.apis.item.getUnknownItemTexture())
+	EasyBronze.apis.item.getItemTexture(gearLink, function(texture)
+		SetItemButtonTexture(button, texture)
+	end)
 
 	button:RegisterForClicks("AnyUp")
 	button:EnableMouse(true)
 	button:SetMouseClickEnabled(true)
 
+	local removeModifierEvent = nil
+
 	button:SetScript('OnEnter', function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 		GameTooltip:SetHyperlink(gearLink)
 		GameTooltip:Show()
+
+		-- Trigger refresh of tooltip when modifier state is changed to show/hide gear comparison.
+		removeModifierEvent = EasyBronze.events:registerEvent("MODIFIER_STATE_CHANGED", function()
+			GameTooltip:SetHyperlink(gearLink)
+		end)
 	end)
 
 	button:SetScript('OnLeave',
-		function(self)
+		function()
+			if removeModifierEvent then
+				removeModifierEvent()
+				removeModifierEvent = nil
+			end
 			GameTooltip_Hide()
 		end)
 
@@ -40,13 +52,12 @@ EasyBronze.CreateGearButton = function(gearLink, bag, slot, equipSlotId)
 			GameTooltip:SetHyperlink(link)
 			GameTooltip:Show()
 		end)
-		local rarity = EasyBronze.apis.item.getItemRarity(link)
-		SetItemButtonQuality(button, rarity)
-
-		local texture = EasyBronze.apis.item.getItemTexture(link, function(actualTexture)
-			SetItemButtonTexture(button, actualTexture)
+		EasyBronze.apis.item.getItemRarity(gearLink, function(itemRarity)
+			SetItemButtonQuality(button, itemRarity)
 		end)
-		SetItemButtonTexture(button, texture)
+		EasyBronze.apis.item.getItemTexture(link, function(texture)
+			SetItemButtonTexture(button, texture)
+		end)
 	end
 
 	button.SetEquip = function(bag, slot, equipSlotId)

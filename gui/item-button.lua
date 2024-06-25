@@ -6,12 +6,16 @@ EasyBronze.CreateItemButton = function(itemId)
 	local button = CreateFrame("Button", "EasyBronzeItemButton_" .. buttonIndex, nil, "EasyBronzeSecureItemButton");
 	buttonIndex = buttonIndex + 1
 	button:SetSize(40, 40)
-	local rarity = EasyBronze.apis.item.getItemRarity(itemId)
 
-	local texture = EasyBronze.apis.item.getItemTexture(itemId, function(actualTexture)
+	local rarity = nil
+	EasyBronze.apis.item.getItemRarity(itemId, function(itemRarity)
+		rarity = itemRarity
+	end)
+
+	SetItemButtonTexture(button, EasyBronze.apis.item.getUnknownItemTexture())
+	EasyBronze.apis.item.getItemTexture(itemId, function(actualTexture)
 		SetItemButtonTexture(button, actualTexture)
 	end)
-	SetItemButtonTexture(button, texture)
 
 	local function updateItemCount()
 		local itemCount = EasyBronze.apis.bags.getItemCount(itemId)

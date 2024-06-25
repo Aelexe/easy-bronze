@@ -5,25 +5,42 @@ EasyBronze.apis.item = {
 		local itemName, _ = C_Item.GetItemInfo(itemId)
 		return itemName
 	end,
-	getItemRarity = function(itemId)
-		local _, _, itemRarity = C_Item.GetItemInfo(itemId)
-		return itemRarity
-	end,
-	getItemTexture = function(itemId, callback)
-		local _, _, _, _, _, _, _, _, _, itemTexture = C_Item.GetItemInfo(itemId)
+	getItemRarity = function(itemId, callback)
+		local itemRarity = select(3, C_Item.GetItemInfo(itemId))
 
-		if (itemTexture == nil) then
-			itemTexture = "Interface\\Icons\\INV_Misc_QuestionMark"
-
+		if itemRarity then
 			if callback ~= nil then
-				local item = Item:CreateFromItemID(itemId)
-				item:ContinueOnItemLoad(function()
-					callback(item:GetItemIcon())
-				end)
+				callback(itemRarity)
 			end
+			return itemRarity
 		end
 
-		return itemTexture
+		if callback ~= nil then
+			local item = Item:CreateFromItemID(itemId)
+			item:ContinueOnItemLoad(function()
+				callback(item:GetItemQuality())
+			end)
+		end
+	end,
+	getUnknownItemTexture = function()
+		return "Interface\\Icons\\INV_Misc_QuestionMark"
+	end,
+	getItemTexture = function(itemId, callback)
+		local itemTexture = select(10, C_Item.GetItemInfo(itemId))
+
+		if (itemTexture) then
+			if callback ~= nil then
+				callback(itemTexture)
+			end
+			return itemTexture
+		end
+
+		if callback ~= nil then
+			local item = Item:CreateFromItemID(itemId)
+			item:ContinueOnItemLoad(function()
+				callback(item:GetItemIcon())
+			end)
+		end
 	end,
 	getItemLevel = function(itemLink)
 		local _, _, _, itemLevel = C_Item.GetItemInfo(itemLink)
